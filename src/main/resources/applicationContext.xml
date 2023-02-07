@@ -9,9 +9,9 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
     <bean id="eventService"
-          class="pl.dolega.springcore.service.EventServiceImpl" />
+          class="pl.dolega.springcore.service.EventService" />
     <bean id="ticketService"
-          class= "pl.dolega.springcore.service.TicketServiceImpl" />
+          class= "pl.dolega.springcore.service.TicketService" />
     <bean id="userService"
-          class="pl.dolega.springcore.service.UserServiceImpl" />
+          class="pl.dolega.springcore.service.UserService" />
 </beans>

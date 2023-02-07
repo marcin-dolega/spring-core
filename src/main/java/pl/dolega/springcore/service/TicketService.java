@@ -1,16 +1,33 @@
 package pl.dolega.springcore.service;
 
+import org.springframework.stereotype.Service;
+import pl.dolega.springcore.dao.TicketDao;
 import pl.dolega.springcore.model.Event;
 import pl.dolega.springcore.model.Ticket;
 import pl.dolega.springcore.model.User;
 
 import java.util.List;
 
-public interface TicketService {
+@Service
+public class TicketService implements TicketDao {
 
-    Ticket bookTicket(long userId, long eventId, int place, Ticket.Category category);
-    List<Ticket> getBookedTickets(User user, int pageSize, int pageNum);
-    List<Ticket> getBookedTickets(Event event, int pageSize, int pageNum);
-    boolean cancelTicket(long ticketId);
+    @Override
+    public Ticket bookTicket(long userId, long eventId, int place, Ticket.Category category) {
+        return null;
+    }
 
+    @Override
+    public List<Ticket> getBookedTickets(User user, int pageSize, int pageNum) {
+        return null;
+    }
+
+    @Override
+    public List<Ticket> getBookedTickets(Event event, int pageSize, int pageNum) {
+        return null;
+    }
+
+    @Override
+    public boolean cancelTicket(long ticketId) {
+        return false;
+    }
 }

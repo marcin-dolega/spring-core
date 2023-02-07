@@ -1,16 +1,42 @@
 package pl.dolega.springcore.service;
 
+import org.springframework.stereotype.Service;
+import pl.dolega.springcore.dao.UserDao;
 import pl.dolega.springcore.model.User;
 
 import java.util.List;
 
-public interface UserService {
+@Service
+public class UserService implements UserDao {
 
-    User getUserById(long userId);
-    User getUserByEmail(String email);
-    List<User> getUsersByName(String name, int pageSize, int pageNum);
-    User createUser(User user);
-    User updateUser(User user);
-    boolean deleteUser(long userId);
 
+    @Override
+    public User getUserById(long userId) {
+        return null;
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return null;
+    }
+
+    @Override
+    public List<User> getUsersByName(String name, int pageSize, int pageNum) {
+        return null;
+    }
+
+    @Override
+    public User createUser(User user) {
+        return null;
+    }
+
+    @Override
+    public User updateUser(User user) {
+        return null;
+    }
+
+    @Override
+    public boolean deleteUser(long userId) {
+        return false;
+    }
 }
