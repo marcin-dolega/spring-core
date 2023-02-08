@@ -5,7 +5,6 @@ import pl.dolega.springcore.model.User;
 
 import java.util.List;
 
-@Component
 public interface UserDao{
 
     User getUserById(long userId);

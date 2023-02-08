@@ -8,7 +8,6 @@ import pl.dolega.springcore.model.User;
 
 import java.util.List;
 
-@Component
 public interface TicketDao {
 
     Ticket bookTicket(long userId, long eventId, int place, Ticket.Category category);

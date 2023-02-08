@@ -1,19 +1,24 @@
 package pl.dolega.springcore.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
-/**
- * Created by maksym_govorischev.
- */
-public interface Event {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Event {
     /**
      * Event id. UNIQUE.
      * @return Event Id
      */
-    long getId();
-    void setId(long id);
-    String getTitle();
-    void setTitle(String title);
-    Date getDate();
-    void setDate(Date date);
+
+    private long id;
+    private String title;
+    private Date date;
+
 }

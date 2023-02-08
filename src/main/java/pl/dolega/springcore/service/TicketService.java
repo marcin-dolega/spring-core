@@ -1,15 +1,17 @@
 package pl.dolega.springcore.service;
 
-import org.springframework.stereotype.Service;
 import pl.dolega.springcore.dao.TicketDao;
 import pl.dolega.springcore.model.Event;
 import pl.dolega.springcore.model.Ticket;
 import pl.dolega.springcore.model.User;
 
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
-@Service
 public class TicketService implements TicketDao {
+
+    public static Map<String, Ticket> tickets = new ConcurrentHashMap<>();
 
     @Override
     public Ticket bookTicket(long userId, long eventId, int place, Ticket.Category category) {

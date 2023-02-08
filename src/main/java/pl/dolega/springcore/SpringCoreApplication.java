@@ -6,15 +6,18 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @SpringBootApplication
 @ImportResource({"classpath*:applicationContext.xml"})
 public class SpringCoreApplication {
 
 	public static void main(String[] args) {
 
-		ApplicationContext appContext = new ClassPathXmlApplicationContext("spring-config.xml");
-
+		ApplicationContext appContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 		SpringApplication.run(SpringCoreApplication.class, args);
+
 	}
 
 }

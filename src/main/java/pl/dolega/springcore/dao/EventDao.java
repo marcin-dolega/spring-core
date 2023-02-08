@@ -1,12 +1,10 @@
 package pl.dolega.springcore.dao;
 
-import org.springframework.stereotype.Component;
 import pl.dolega.springcore.model.Event;
 
 import java.util.Date;
 import java.util.List;
 
-@Component
 public interface EventDao {
 
     Event getEventById(long eventId);

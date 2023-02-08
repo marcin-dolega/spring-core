@@ -1,42 +1,39 @@
 package pl.dolega.springcore.service;
 
-import org.springframework.stereotype.Service;
-import pl.dolega.springcore.dao.EventDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import pl.dolega.springcore.dao.impl.EventDaoImpl;
 import pl.dolega.springcore.model.Event;
 
 import java.util.Date;
 import java.util.List;
 
-@Service
-public class EventService implements EventDao {
+public class EventService {
 
-    @Override
+
+    @Autowired
+    EventDaoImpl eventDao;
+
     public Event getEventById(long eventId) {
-        return null;
+        return eventDao.getEventById(eventId);
     }
 
-    @Override
     public List<Event> getEventsByTitle(String title, int pageSize, int pageNum) {
-        return null;
+        return eventDao.getEventsByTitle(title, pageSize, pageNum);
     }
 
-    @Override
     public List<Event> getEventsForDay(Date day, int pageSize, int pageNum) {
-        return null;
+        return eventDao.getEventsForDay(day, pageSize, pageNum);
     }
 
-    @Override
     public Event createEvent(Event event) {
-        return null;
+        return eventDao.createEvent(event);
     }
 
-    @Override
     public Event updateEvent(Event event) {
-        return null;
+        return eventDao.updateEvent(event);
     }
 
-    @Override
     public boolean deleteEvent(long eventId) {
-        return false;
+        return eventDao.deleteEvent(eventId);
     }
 }

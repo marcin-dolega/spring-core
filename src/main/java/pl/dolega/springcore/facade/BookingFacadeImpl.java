@@ -12,7 +12,6 @@ import pl.dolega.springcore.service.UserService;
 import java.util.Date;
 import java.util.List;
 
-@Component
 public class BookingFacadeImpl implements BookingFacade {
 
     @Autowired
@@ -38,6 +37,7 @@ public class BookingFacadeImpl implements BookingFacade {
     public List<Event> getEventsForDay(Date day, int pageSize, int pageNum) {
         return eventService.getEventsForDay(day, pageSize, pageNum);
     }
+
 
     @Override
     public Event createEvent(Event event) {

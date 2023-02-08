@@ -1,22 +1,28 @@
 package pl.dolega.springcore.model;
 
-/**
- * Created by maksym_govorischev on 14/03/14.
- */
-public interface User {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class User {
+
     /**
      * User Id. UNIQUE.
      * @return User Id.
      */
-    long getId();
-    void setId(long id);
-    String getName();
-    void setName(String name);
+
+    private long id;
+    private String name;
+    private String email;
+
 
     /**
      * User email. UNIQUE.
      * @return User email.
      */
-    String getEmail();
-    void setEmail(String email);
 }
