@@ -58,16 +58,12 @@ public class UserServiceTests {
             }
         }
 
-        System.out.println(userList);
-
         for (User u : userList) {
             userStorage.put("user:" + u.getId(), u);
         }
 
-        System.out.println(userStorage);
-        usersByName = userDao.getUsersByName("user", 4, 0);
-        System.out.println(usersByName);
-        assertEquals(2, usersByName.size());
+        usersByName = userDao.getUsersByName("user", 4, 1);
+        assertEquals(4, usersByName.size());
     }
 
     @Test
@@ -79,6 +75,7 @@ public class UserServiceTests {
 
     @Test
     public void createUserTest() {
+        userStorage.clear();
         userDao.createUser(user);
         System.out.println(user);
         assertNotNull(user);

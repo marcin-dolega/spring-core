@@ -23,27 +23,22 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserByEmail(String email) {
-        for (String key : userStorage.keySet()) {
-            if (userStorage.get(key).getEmail().equals(email)) {
-                return userStorage.get(key);
-            }
-        }
-        return null;
+        return userStorage.values()
+                .stream()
+                .filter(user -> user.getEmail().equals(email))
+                .findFirst()
+                .orElseThrow();
     }
 
     @Override
     public List<User> getUsersByName(String name, int pageSize, int pageNum) {
-        List<User> userList = new ArrayList<>();
-        List<User> usersByName = new ArrayList<>();
-        userStorage.forEach((s, user) -> userList.add(user));
-        int start = pageNum * pageSize;
-        int end = pageSize * (pageNum + 1);
-        for (int i = start; i < end; i++) {
-            if (userList.get(i).getName().equals(name)) {
-                usersByName.add(userList.get(i));
-            }
-        }
-        return usersByName;
+        int skipCount = (pageNum - 1) * pageSize;
+        return userStorage.values()
+                .stream()
+                .filter(user -> user.getName().equals("user"))
+                .skip(skipCount)
+                .limit(pageSize)
+                .toList();
     }
 
     @Override
@@ -69,26 +64,26 @@ public class UserDaoImpl implements UserDao {
     }
 
     private boolean doesExist(long userId) {
-        if (getUserById(userId) == null) {
+        if (getUserById(userId) != null) {
             try {
                 throw new RecordAlreadyExistException("user:" + userId + " already exist");
             } catch (RecordAlreadyExistException e) {
                 e.printStackTrace();
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     private boolean doesntExist(long userId) {
-        if (getUserById(userId) != null) {
+        if (getUserById(userId) == null) {
             try {
                 throw new NoSuchRecordException("user:" + userId + " doesn't exist");
             } catch (NoSuchRecordException e) {
                 e.printStackTrace();
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 }

@@ -18,6 +18,9 @@
     <bean id="userDao"
           class="pl.dolega.springcore.dao.impl.UserDaoImpl" />
 
+    <bean id="ticketDao"
+          class="pl.dolega.springcore.dao.impl.TicketDaoImpl" />
+
     <bean id="userStorage" class="java.util.LinkedHashMap" />
     <bean id="eventStorage" class="java.util.LinkedHashMap" />
     <bean id="ticketStorage" class="java.util.LinkedHashMap" />
