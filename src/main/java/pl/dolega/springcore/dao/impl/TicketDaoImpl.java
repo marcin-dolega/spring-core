@@ -8,6 +8,7 @@ import pl.dolega.springcore.model.Event;
 import pl.dolega.springcore.model.Ticket;
 import pl.dolega.springcore.model.Ticket.Category;
 import pl.dolega.springcore.model.User;
+import pl.dolega.springcore.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -19,8 +20,14 @@ public class TicketDaoImpl implements TicketDao {
     @Autowired
     LinkedHashMap<String, Ticket> ticketStorage;
 
+    @Autowired
+    Utils utils;
+
     @Override
     public Ticket bookTicket(long userId, long eventId, int place, Category category) {
+        if (utils.doesntExist("user", userId) || utils.doesntExist("event", eventId)) {
+            return null;
+        }
         Ticket ticket = Ticket.builder()
                 .id(ticketStorage.size() + 1)
                 .userId(userId)
@@ -28,7 +35,7 @@ public class TicketDaoImpl implements TicketDao {
                 .place(place)
                 .category(category)
                 .build();
-        if (doesExist(ticket.getId())) {
+        if (utils.doesExist("ticket", ticket.getId())) {
             return ticketStorage.get("ticket:" + ticket.getId());
         }
         ticketStorage.put("ticket:" + ticket.getId(), ticket);
@@ -37,6 +44,9 @@ public class TicketDaoImpl implements TicketDao {
 
     @Override
     public List<Ticket> getBookedTickets(User user, int pageSize, int pageNum) {
+        if (utils.doesntExist("user", user.getId())) {
+            return null;
+        }
         int skipCount = (pageNum - 1) * pageSize;
         return ticketStorage.values()
                 .stream()
@@ -48,6 +58,9 @@ public class TicketDaoImpl implements TicketDao {
 
     @Override
     public List<Ticket> getBookedTickets(Event event, int pageSize, int pageNum) {
+        if (utils.doesntExist("event", event.getId())) {
+            return null;
+        }
         int skipCount = (pageNum - 1) * pageSize;
         return ticketStorage.values()
                 .stream()
@@ -59,35 +72,11 @@ public class TicketDaoImpl implements TicketDao {
 
     @Override
     public boolean cancelTicket(long ticketId) {
-        if (doesntExist(ticketId)) {
+        if (utils.doesntExist("ticket", ticketId)) {
             return false;
         }
         ticketStorage.remove("ticket:" + ticketId);
         return true;
-    }
-
-    private boolean doesExist(long ticketId) {
-        if (ticketStorage.get("ticket:" + ticketId) != null) {
-            try {
-                throw new RecordAlreadyExistException("ticket:" + ticketId + " already exist");
-            } catch (RecordAlreadyExistException e) {
-                e.printStackTrace();
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean doesntExist(long ticketId) {
-        if (ticketStorage.get("ticket:" + ticketId) == null) {
-            try {
-                throw new NoSuchRecordException("ticket:" + ticketId + " doesn't exist");
-            } catch (NoSuchRecordException e) {
-                e.printStackTrace();
-                return true;
-            }
-        }
-        return false;
     }
 
 }

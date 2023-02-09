@@ -5,6 +5,7 @@ import pl.dolega.springcore.dao.UserDao;
 import pl.dolega.springcore.exceptions.NoSuchRecordException;
 import pl.dolega.springcore.exceptions.RecordAlreadyExistException;
 import pl.dolega.springcore.model.User;
+import pl.dolega.springcore.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -15,6 +16,9 @@ public class UserDaoImpl implements UserDao {
 
     @Autowired
     LinkedHashMap<String, User> userStorage;
+
+    @Autowired
+    Utils utils;
 
     @Override
     public User getUserById(long userId) {
@@ -43,7 +47,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User createUser(User user) {
-        if (doesExist(user.getId())) {
+        if (utils.doesExist("user", user.getId())) {
             return user;
         }
         return userStorage.put("user:" + user.getId(), user);
@@ -51,39 +55,19 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User updateUser(User user) {
+        if (utils.doesntExist("user", user.getId())) {
+            userStorage.put("user:" + user.getId(), user);
+        }
         return userStorage.replace("user:" + user.getId(), user);
     }
 
     @Override
     public boolean deleteUser(long userId) {
-        if (doesntExist(userId)) {
+        if (utils.doesntExist("user", userId)) {
             return false;
         }
         userStorage.remove("user:" + userId);
         return true;
     }
 
-    private boolean doesExist(long userId) {
-        if (getUserById(userId) != null) {
-            try {
-                throw new RecordAlreadyExistException("user:" + userId + " already exist");
-            } catch (RecordAlreadyExistException e) {
-                e.printStackTrace();
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean doesntExist(long userId) {
-        if (getUserById(userId) == null) {
-            try {
-                throw new NoSuchRecordException("user:" + userId + " doesn't exist");
-            } catch (NoSuchRecordException e) {
-                e.printStackTrace();
-                return true;
-            }
-        }
-        return false;
-    }
 }

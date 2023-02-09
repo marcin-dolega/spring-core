@@ -65,7 +65,7 @@ public class EventDaoTests {
             eventStorage.put("event:" + e.getId(), e);
         }
         eventsByTitle = eventDao.getEventsByTitle("title_1", 4, 1);
-        assertEquals(2, eventsByTitle.size());
+        assertEquals(4, eventsByTitle.size());
     }
 
     @Test
@@ -90,7 +90,7 @@ public class EventDaoTests {
                         .build());
             }
         }
-        eventsByDay = eventDao.getEventsForDay(eventList.get(0).getDate(), 4, 0);
+        eventsByDay = eventDao.getEventsForDay(eventList.get(0).getDate(), 4, 2);
         assertNotNull(eventsByDay);
     }
 

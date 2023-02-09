@@ -1,35 +1,32 @@
 package pl.dolega.springcore.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import pl.dolega.springcore.dao.TicketDao;
 import pl.dolega.springcore.model.Event;
 import pl.dolega.springcore.model.Ticket;
+import pl.dolega.springcore.model.Ticket.Category;
 import pl.dolega.springcore.model.User;
 
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
-public class TicketService implements TicketDao {
+public class TicketService  {
 
-    public static Map<String, Ticket> tickets = new ConcurrentHashMap<>();
+    @Autowired
+    TicketDao ticketDao;
 
-    @Override
-    public Ticket bookTicket(long userId, long eventId, int place, Ticket.Category category) {
-        return null;
+    public Ticket bookTicket(long userId, long eventId, int place, Category category) {
+        return ticketDao.bookTicket(userId, eventId, place, category);
     }
 
-    @Override
     public List<Ticket> getBookedTickets(User user, int pageSize, int pageNum) {
-        return null;
+        return ticketDao.getBookedTickets(user, pageSize, pageNum);
     }
 
-    @Override
     public List<Ticket> getBookedTickets(Event event, int pageSize, int pageNum) {
-        return null;
+        return ticketDao.getBookedTickets(event, pageSize, pageNum);
     }
 
-    @Override
     public boolean cancelTicket(long ticketId) {
-        return false;
+        return ticketDao.cancelTicket(ticketId);
     }
 }

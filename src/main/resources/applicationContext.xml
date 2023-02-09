@@ -21,6 +21,12 @@
     <bean id="ticketDao"
           class="pl.dolega.springcore.dao.impl.TicketDaoImpl" />
 
+    <bean id="bookingFacade"
+          class="pl.dolega.springcore.facade.BookingFacadeImpl" />
+
+    <bean id="utils"
+          class="pl.dolega.springcore.utils.Utils" />
+
     <bean id="userStorage" class="java.util.LinkedHashMap" />
     <bean id="eventStorage" class="java.util.LinkedHashMap" />
     <bean id="ticketStorage" class="java.util.LinkedHashMap" />
