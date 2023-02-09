@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans
         xmlns="http://www.springframework.org/schema/beans"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.w3.org/1999/xhtml"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
@@ -27,8 +27,19 @@
     <bean id="utils"
           class="pl.dolega.springcore.utils.Utils" />
 
+    <bean id="mapper"
+          class="pl.dolega.springcore.mapper.Mapper" />
+
     <bean id="userStorage" class="java.util.LinkedHashMap" />
     <bean id="eventStorage" class="java.util.LinkedHashMap" />
     <bean id="ticketStorage" class="java.util.LinkedHashMap" />
+
+    <bean id="dataInitializer"
+          class="pl.dolega.springcore.bootstrap.DataInitializer" />
+
+    <bean id="beanPostProcessor"
+          class="pl.dolega.springcore.bootstrap.CustomProcessor" />
+
+<!--    <context:property-placeholder location="file:/path/to/myConfigFile.properties" />-->
 
 </beans>

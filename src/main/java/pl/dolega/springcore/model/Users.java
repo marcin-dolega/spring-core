@@ -2,32 +2,24 @@ package pl.dolega.springcore.model;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@XmlRootElement(name = "user")
-@XmlAccessorType(XmlAccessType.FIELD)
-public class User {
+@XmlRootElement(name = "users")
+@XmlAccessorType (XmlAccessType.FIELD)
+public class Users {
 
-    /**
-     * User Id. UNIQUE.
-     * @return User Id.
-     */
+    @XmlElement(name = "user")
+    private List<User> users = null;
 
-    private long id;
-    private String name;
-    private String email;
-
-
-    /**
-     * User email. UNIQUE.
-     * @return User email.
-     */
 }

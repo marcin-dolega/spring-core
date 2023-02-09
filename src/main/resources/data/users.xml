@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<users>
+    <user>
+        <id>1</id>
+        <name>User_1</name>
+        <email>user1@email.com</email>
+    </user>
+    <user>
+        <id>2</id>
+        <name>User_2</name>
+        <email>user2@email.com</email>
+    </user>
+    <user>
+        <id>3</id>
+        <name>User_3</name>
+        <email>user3@email.com</email>
+    </user>
+    <user>
+        <id>4</id>
+        <name>User_4</name>
+        <email>user4@email.com</email>
+    </user>
+</users>
