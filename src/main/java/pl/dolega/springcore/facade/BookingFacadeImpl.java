@@ -1,7 +1,5 @@
 package pl.dolega.springcore.facade;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import pl.dolega.springcore.model.Event;
 import pl.dolega.springcore.model.Ticket;
 import pl.dolega.springcore.model.User;
@@ -14,14 +12,15 @@ import java.util.List;
 
 public class BookingFacadeImpl implements BookingFacade {
 
-    @Autowired
     EventService eventService;
-
-    @Autowired
     UserService userService;
-
-    @Autowired
     TicketService ticketService;
+
+    public BookingFacadeImpl(EventService eventService, UserService userService, TicketService ticketService) {
+        this.eventService = eventService;
+        this.userService = userService;
+        this.ticketService = ticketService;
+    }
 
     @Override
     public Event getEventById(long eventId) {

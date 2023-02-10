@@ -24,13 +24,6 @@ public class CustomProcessor implements BeanPostProcessor {
     boolean eventsStored = false;
     boolean ticketStored = false;
 
-
-    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        if (beanName.equals("eventStorage"))
-            System.out.println("Before:" + bean.getClass() + "  " + beanName);
-        return bean;
-    }
-
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
 
         if (userStorage != null && !usersStored) {
