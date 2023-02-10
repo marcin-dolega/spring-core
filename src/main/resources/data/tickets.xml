@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<tickets>
+    <ticket>
+        <id>1</id>
+        <eventId>1</eventId>
+        <userId>1</userId>
+        <category>STANDARD</category>
+        <place>1</place>
+    </ticket>
+    <ticket>
+        <id>2</id>
+        <eventId>1</eventId>
+        <userId>1</userId>
+        <category>STANDARD</category>
+        <place>1</place>
+    </ticket>
+    <ticket>
+        <id>3</id>
+        <eventId>2</eventId>
+        <userId>2</userId>
+        <category>STANDARD</category>
+        <place>2</place>
+    </ticket>
+    <ticket>
+        <id>4</id>
+        <eventId>2</eventId>
+        <userId>2</userId>
+        <category>STANDARD</category>
+        <place>2</place>
+    </ticket>
+</tickets>

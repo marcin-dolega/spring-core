@@ -4,7 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import pl.dolega.springcore.dao.UserDao;
+import pl.dolega.springcore.facade.BookingFacade;
+import pl.dolega.springcore.model.Event;
+import pl.dolega.springcore.model.Ticket;
 import pl.dolega.springcore.model.User;
 
 import java.util.ArrayList;
@@ -12,16 +14,16 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
-public class UserDaoTests {
+public class BookingFacadeUserTests {
 
     @Autowired
-    UserDao userDao;
+    BookingFacade bookingFacade;
 
     @Autowired
     LinkedHashMap<String, User> userStorage;
-
     User user;
 
     @BeforeEach
@@ -36,8 +38,8 @@ public class UserDaoTests {
 
     @Test
     public void getUserByIdTest() {
-        userDao.createUser(user);
-        User fetch = userDao.getUserById(user.getId());
+        bookingFacade.createUser(user);
+        User fetch = bookingFacade.getUserById(user.getId());
         assertNotNull(fetch);
     }
 
@@ -63,20 +65,20 @@ public class UserDaoTests {
             userStorage.put("user:" + u.getId(), u);
         }
 
-        usersByName = userDao.getUsersByName("user", 4, 1);
+        usersByName = bookingFacade.getUsersByName("user", 4, 1);
         assertEquals(4, usersByName.size());
     }
 
     @Test
     public void getUserByEmailTest() {
-        userDao.createUser(user);
-        User fetch = userDao.getUserByEmail("user@email.com");
+        bookingFacade.createUser(user);
+        User fetch = bookingFacade.getUserByEmail("user@email.com");
         assertNotNull(fetch);
     }
 
     @Test
     public void createUserTest() {
-        userDao.createUser(user);
+        bookingFacade.createUser(user);
         assertNotNull(user);
         assertNotNull(userStorage);
         assertEquals("user", userStorage.get("user:" + user.getId()).getName());
@@ -91,23 +93,22 @@ public class UserDaoTests {
                 .email("update@email.com")
                 .build();
 
-        userDao.createUser(user);
-        userDao.updateUser(update);
+        bookingFacade.createUser(user);
+        bookingFacade.updateUser(update);
 
         assertEquals("update", userStorage.get("user:" + user.getId()).getName());
     }
 
     @Test
     public void deleteUserTrueTest() {
-        userDao.createUser(user);
-        boolean result = userDao.deleteUser(user.getId());
+        bookingFacade.createUser(user);
+        boolean result = bookingFacade.deleteUser(user.getId());
         assertTrue(result);
     }
 
     @Test
     public void deleteUserFalseTest() {
-        boolean result = userDao.deleteUser(user.getId());
+        boolean result = bookingFacade.deleteUser(user.getId());
         assertFalse(result);
     }
-
 }

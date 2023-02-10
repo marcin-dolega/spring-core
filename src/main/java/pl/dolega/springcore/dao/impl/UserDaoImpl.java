@@ -17,8 +17,7 @@ public class UserDaoImpl implements UserDao {
     @Autowired
     LinkedHashMap<String, User> userStorage;
 
-    @Autowired
-    Utils utils;
+    Utils utils = new Utils();
 
     @Override
     public User getUserById(long userId) {
@@ -47,7 +46,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User createUser(User user) {
-        if (utils.doesExist("user", user.getId())) {
+        if (utils.doesExist("user", user.getId(), userStorage)) {
             return user;
         }
         return userStorage.put("user:" + user.getId(), user);
@@ -55,7 +54,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User updateUser(User user) {
-        if (utils.doesntExist("user", user.getId())) {
+        if (utils.doesntExist("user", user.getId(), userStorage)) {
             userStorage.put("user:" + user.getId(), user);
         }
         return userStorage.replace("user:" + user.getId(), user);
@@ -63,7 +62,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean deleteUser(long userId) {
-        if (utils.doesntExist("user", userId)) {
+        if (utils.doesntExist("user", userId, userStorage)) {
             return false;
         }
         userStorage.remove("user:" + userId);

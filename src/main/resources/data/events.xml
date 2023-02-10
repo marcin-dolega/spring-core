@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<events>
+    <event>
+        <id>1</id>
+        <title>event_1</title>
+        <date>2023-01-01T09:00:00</date>
+    </event>
+    <event>
+        <id>2</id>
+        <title>event_2</title>
+        <date>2023-02-02T09:00:00</date>
+    </event>
+    <event>
+        <id>3</id>
+        <title>event_3</title>
+        <date>2002-03-03T09:00:00</date>
+    </event>
+    <event>
+        <id>4</id>
+        <title>event_4</title>
+        <date>2002-04-04T09:00:00</date>
+    </event>
+</events>

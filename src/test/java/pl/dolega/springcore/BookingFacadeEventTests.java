@@ -4,8 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import pl.dolega.springcore.dao.EventDao;
+import pl.dolega.springcore.facade.BookingFacade;
 import pl.dolega.springcore.model.Event;
+import pl.dolega.springcore.model.User;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -14,16 +15,16 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
-public class EventDaoTests {
+public class BookingFacadeEventTests {
 
     @Autowired
-    EventDao eventDao;
+    BookingFacade bookingFacade;
 
     @Autowired
     LinkedHashMap<String, Event> eventStorage;
-
     Event event;
 
     @BeforeEach
@@ -38,8 +39,8 @@ public class EventDaoTests {
 
     @Test
     public void getEventByIdTest() {
-        eventDao.createEvent(event);
-        Event fetched = eventDao.getEventById(event.getId());
+        bookingFacade.createEvent(event);
+        Event fetched = bookingFacade.getEventById(event.getId());
         assertNotNull(fetched);
     }
 
@@ -65,7 +66,7 @@ public class EventDaoTests {
         for (Event e : eventList) {
             eventStorage.put("event:" + e.getId(), e);
         }
-        eventsByTitle = eventDao.getEventsByTitle("title_1", 4, 1);
+        eventsByTitle = bookingFacade.getEventsByTitle("title_1", 4, 1);
         assertEquals(4, eventsByTitle.size());
     }
 
@@ -91,13 +92,13 @@ public class EventDaoTests {
                         .build());
             }
         }
-        eventsByDay = eventDao.getEventsForDay(eventList.get(0).getDate(), 4, 2);
+        eventsByDay = bookingFacade.getEventsForDay(eventList.get(0).getDate(), 4, 2);
         assertNotNull(eventsByDay);
     }
 
     @Test
     public void createEventTest() {
-        eventDao.createEvent(event);
+        bookingFacade.createEvent(event);
         System.out.println(eventStorage);
         assertNotNull(event);
         assertNotNull(eventStorage);
@@ -112,22 +113,22 @@ public class EventDaoTests {
                 .date(Date.from(Instant.now()))
                 .build();
 
-        eventDao.createEvent(event);
-        eventDao.updateEvent(update);
+        bookingFacade.createEvent(event);
+        bookingFacade.updateEvent(update);
 
         assertEquals(eventStorage.get("event:" + event.getId()).getTitle(), "event_2");
     }
 
     @Test
     public void deleteEventTrueTest() {
-        eventDao.createEvent(event);
-        boolean result = eventDao.deleteEvent(event.getId());
+        bookingFacade.createEvent(event);
+        boolean result = bookingFacade.deleteEvent(event.getId());
         assertTrue(result);
     }
 
     @Test
     public void deleteEventFalseTest() {
-        boolean result = eventDao.deleteEvent(event.getId());
+        boolean result = bookingFacade.deleteEvent(event.getId());
         assertFalse(result);
     }
 }

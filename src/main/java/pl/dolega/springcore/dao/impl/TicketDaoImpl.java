@@ -21,11 +21,18 @@ public class TicketDaoImpl implements TicketDao {
     LinkedHashMap<String, Ticket> ticketStorage;
 
     @Autowired
-    Utils utils;
+    LinkedHashMap<String, Ticket> userStorage;
+
+    @Autowired
+    LinkedHashMap<String, Ticket> eventStorage;
+
+
+
+    Utils utils = new Utils();
 
     @Override
     public Ticket bookTicket(long userId, long eventId, int place, Category category) {
-        if (utils.doesntExist("user", userId) || utils.doesntExist("event", eventId)) {
+        if (utils.doesntExist("user", userId, userStorage) || utils.doesntExist("event", eventId, eventStorage)) {
             return null;
         }
         Ticket ticket = Ticket.builder()
@@ -35,7 +42,7 @@ public class TicketDaoImpl implements TicketDao {
                 .place(place)
                 .category(category)
                 .build();
-        if (utils.doesExist("ticket", ticket.getId())) {
+        if (utils.doesExist("ticket", ticket.getId(), ticketStorage)) {
             return ticketStorage.get("ticket:" + ticket.getId());
         }
         ticketStorage.put("ticket:" + ticket.getId(), ticket);
@@ -44,7 +51,7 @@ public class TicketDaoImpl implements TicketDao {
 
     @Override
     public List<Ticket> getBookedTickets(User user, int pageSize, int pageNum) {
-        if (utils.doesntExist("user", user.getId())) {
+        if (utils.doesntExist("user", user.getId(), userStorage)) {
             return null;
         }
         int skipCount = (pageNum - 1) * pageSize;
@@ -58,7 +65,7 @@ public class TicketDaoImpl implements TicketDao {
 
     @Override
     public List<Ticket> getBookedTickets(Event event, int pageSize, int pageNum) {
-        if (utils.doesntExist("event", event.getId())) {
+        if (utils.doesntExist("event", event.getId(), eventStorage)) {
             return null;
         }
         int skipCount = (pageNum - 1) * pageSize;
@@ -72,7 +79,7 @@ public class TicketDaoImpl implements TicketDao {
 
     @Override
     public boolean cancelTicket(long ticketId) {
-        if (utils.doesntExist("ticket", ticketId)) {
+        if (utils.doesntExist("ticket", ticketId, ticketStorage)) {
             return false;
         }
         ticketStorage.remove("ticket:" + ticketId);

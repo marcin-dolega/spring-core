@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import pl.dolega.springcore.dao.TicketDao;
-import pl.dolega.springcore.dao.impl.TicketDaoImpl;
+import pl.dolega.springcore.facade.BookingFacade;
 import pl.dolega.springcore.model.Event;
 import pl.dolega.springcore.model.Ticket;
 import pl.dolega.springcore.model.User;
@@ -15,12 +15,13 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
-public class TicketDaoTests {
+public class BookingFacadeTicketsTests {
 
     @Autowired
-    TicketDao ticketDao;
+    BookingFacade bookingFacade;
 
     @Autowired
     LinkedHashMap<String, Ticket> ticketStorage;
@@ -55,7 +56,7 @@ public class TicketDaoTests {
 
     @Test
     public void bookTicketTest() {
-        Ticket ticket = ticketDao.bookTicket(user.getId(), event.getId(), 1, Ticket.Category.STANDARD);
+        Ticket ticket = bookingFacade.bookTicket(user.getId(), event.getId(), 1, Ticket.Category.STANDARD);
         assertNotNull(ticketStorage.get("ticket:" + ticket.getId()));
     }
 
@@ -64,7 +65,7 @@ public class TicketDaoTests {
         for (int i = 0; i < 4; i++) {
             ticketStorage.put("ticket:" + i, Ticket.builder().id(i).userId(1).build());
         }
-        ticketList = ticketDao.getBookedTickets(user, 2, 1);
+        ticketList = bookingFacade.getBookedTickets(user, 2, 1);
         assertEquals(2, ticketList.size());
     }
 
@@ -73,21 +74,21 @@ public class TicketDaoTests {
         for (int i = 0; i < 4; i++) {
             ticketStorage.put("ticket:" + i, Ticket.builder().eventId(1).build());
         }
-        ticketList = ticketDao.getBookedTickets(event, 2, 1);
+        ticketList = bookingFacade.getBookedTickets(event, 2, 1);
         assertEquals(2, ticketList.size());
     }
 
     @Test
     public void cancelTicketTrueTest() {
-        Ticket ticket = ticketDao.bookTicket(user.getId(), event.getId(), 1, Ticket.Category.STANDARD);
-        boolean result = ticketDao.cancelTicket(ticket.getId());
+        Ticket ticket = bookingFacade.bookTicket(user.getId(), event.getId(), 1, Ticket.Category.STANDARD);
+        boolean result = bookingFacade.cancelTicket(ticket.getId());
         assertTrue(result);
     }
 
     @Test
     public void cancelTicketFalseTest() {
         Ticket ticket = Ticket.builder().build();
-        boolean result = ticketDao.cancelTicket(ticket.getId());
+        boolean result = bookingFacade.cancelTicket(ticket.getId());
         assertFalse(result);
     }
 }

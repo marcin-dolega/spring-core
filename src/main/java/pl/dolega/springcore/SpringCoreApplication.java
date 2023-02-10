@@ -15,7 +15,6 @@ public class SpringCoreApplication {
 
 	public static void main(String[] args) {
 
-		ApplicationContext appContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 		SpringApplication.run(SpringCoreApplication.class, args);
 
 	}

@@ -1,15 +1,11 @@
 package pl.dolega.springcore.bootstrap;
 
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Unmarshaller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import pl.dolega.springcore.model.Event;
+import pl.dolega.springcore.model.Ticket;
 import pl.dolega.springcore.model.User;
-import pl.dolega.springcore.model.Users;
 
-import javax.xml.stream.XMLStreamException;
-import java.io.File;
 import java.util.LinkedHashMap;
 
 public class DataInitializer implements CommandLineRunner {
@@ -17,24 +13,19 @@ public class DataInitializer implements CommandLineRunner {
     @Autowired
     LinkedHashMap<String, User> userStorage;
 
+    @Autowired
+    LinkedHashMap<String, Event> eventStorage;
+
+    @Autowired
+    LinkedHashMap<String, Ticket> ticketStorage;
+
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
 
-        jaxbXmlFileToObjectList("src/main/resources/data/users.xml");
+        System.out.println(userStorage.values());
+        System.out.println(eventStorage.values());
+        System.out.println(ticketStorage.values());
 
     }
 
-    private void jaxbXmlFileToObjectList(String fileName) throws JAXBException {
-
-        JAXBContext jaxbContext = JAXBContext.newInstance(Users.class);
-        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-
-        Users users = (Users) jaxbUnmarshaller.unmarshal(new File(fileName));
-
-        for (User user : users.getUsers()) {
-            userStorage.put("user:" + user.getId(), user);
-        }
-
-        System.out.println(userStorage);
-    }
 }

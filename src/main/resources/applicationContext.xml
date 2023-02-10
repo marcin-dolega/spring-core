@@ -24,12 +24,6 @@
     <bean id="bookingFacade"
           class="pl.dolega.springcore.facade.BookingFacadeImpl" />
 
-    <bean id="utils"
-          class="pl.dolega.springcore.utils.Utils" />
-
-    <bean id="mapper"
-          class="pl.dolega.springcore.mapper.Mapper" />
-
     <bean id="userStorage" class="java.util.LinkedHashMap" />
     <bean id="eventStorage" class="java.util.LinkedHashMap" />
     <bean id="ticketStorage" class="java.util.LinkedHashMap" />

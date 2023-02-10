@@ -16,8 +16,7 @@ public class EventDaoImpl implements EventDao {
     @Autowired
     LinkedHashMap<String, Event> eventStorage;
 
-    @Autowired
-    Utils utils;
+    Utils utils = new Utils();
 
     @Override
     public Event getEventById(long eventId) {
@@ -54,7 +53,7 @@ public class EventDaoImpl implements EventDao {
 
     @Override
     public Event createEvent(Event event) {
-        if (utils.doesExist("event", event.getId())) {
+        if (utils.doesExist("event", event.getId(), eventStorage)) {
             return event;
         }
         return eventStorage.put("event:" + event.getId(), event);
@@ -62,7 +61,7 @@ public class EventDaoImpl implements EventDao {
 
     @Override
     public Event updateEvent(Event event) {
-        if (utils.doesntExist("event", event.getId())) {
+        if (utils.doesntExist("event", event.getId(), eventStorage)) {
             eventStorage.put("event:" + event.getId(), event);
         }
         eventStorage.replace("event:" + event.getId(), event);
@@ -71,7 +70,7 @@ public class EventDaoImpl implements EventDao {
 
     @Override
     public boolean deleteEvent(long eventId) {
-        if (utils.doesntExist("event", eventId)) {
+        if (utils.doesntExist("event", eventId, eventStorage)) {
             return false;
         }
         eventStorage.remove("event:" + eventId);
