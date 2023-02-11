@@ -32,10 +32,19 @@
     <bean id="eventStorage" class="java.util.LinkedHashMap" />
     <bean id="ticketStorage" class="java.util.LinkedHashMap" />
 
-    <bean id="dataInitializer"
-          class="pl.dolega.springcore.bootstrap.DataInitializer" />
+    <bean id="bootstrap"
+          class="pl.dolega.springcore.bootstrap.Bootstrap" />
 
     <bean id="beanPostProcessor"
           class="pl.dolega.springcore.bootstrap.CustomProcessor" />
+
+<!--    <context:property-placeholder location="classpath:dataSource.properties"/>-->
+
+    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="location">
+                <value>classpath:dataSource.properties</value>
+        </property>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+    </bean>
 
 </beans>

@@ -1,11 +1,12 @@
 package pl.dolega.springcore.dao.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import pl.dolega.springcore.bootstrap.Bootstrap;
 import pl.dolega.springcore.dao.EventDao;
-import pl.dolega.springcore.exceptions.NoSuchRecordException;
 import pl.dolega.springcore.model.Event;
-import pl.dolega.springcore.model.User;
-import pl.dolega.springcore.utils.Utils;
+import pl.dolega.springcore.utils.RecordChecker;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,15 +17,19 @@ public class EventDaoImpl implements EventDao {
     @Autowired
     LinkedHashMap<String, Event> eventStorage;
 
-    Utils utils = new Utils();
+    RecordChecker utils = new RecordChecker();
+
+    private static final Logger logger = LoggerFactory.getLogger(EventDao.class);
 
     @Override
     public Event getEventById(long eventId) {
+        logger.info("Getting event by id: " + eventId);
         return eventStorage.get("event:" + eventId);
     }
 
     @Override
     public List<Event> getEventsByTitle(String title, int pageSize, int pageNum) {
+        logger.info("Getting events of title: " + title + ".");
         int skipCount = (pageNum - 1) * pageSize;
         return eventStorage.values()
                 .stream()
@@ -36,6 +41,11 @@ public class EventDaoImpl implements EventDao {
 
     @Override
     public List<Event> getEventsForDay(Date day, int pageSize, int pageNum) {
+        try {
+            logger.info("Getting events for: " + String.valueOf(getDateWithoutTime(day)).substring(4, 10) + ".");
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
         int skipCount = (pageNum - 1) * pageSize;
         return eventStorage.values()
                 .stream()
@@ -54,17 +64,20 @@ public class EventDaoImpl implements EventDao {
     @Override
     public Event createEvent(Event event) {
         if (utils.doesExist("event", event.getId(), eventStorage)) {
+            logger.error("Event of id: " + event.getId() + " already exists.");
             return event;
         }
+        logger.info("Event of id: " + event.getId() + " created.");
         return eventStorage.put("event:" + event.getId(), event);
     }
 
     @Override
     public Event updateEvent(Event event) {
         if (utils.doesntExist("event", event.getId(), eventStorage)) {
-            eventStorage.put("event:" + event.getId(), event);
+            return event;
         }
         eventStorage.replace("event:" + event.getId(), event);
+        logger.info("Event of id: " + event.getId() + " updated.");
         return event;
     }
 
@@ -74,6 +87,7 @@ public class EventDaoImpl implements EventDao {
             return false;
         }
         eventStorage.remove("event:" + eventId);
+        logger.info("Event of id: " + eventId + " deleted.");
         return true;
     }
 

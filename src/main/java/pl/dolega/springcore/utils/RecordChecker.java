@@ -5,7 +5,7 @@ import pl.dolega.springcore.exceptions.RecordAlreadyExistException;
 
 import java.util.LinkedHashMap;
 
-public class Utils {
+public class RecordChecker {
 
     public boolean doesExist(String entity, long id, LinkedHashMap<String, ?> storage) {
 

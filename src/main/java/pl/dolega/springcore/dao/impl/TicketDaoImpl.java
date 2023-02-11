@@ -1,19 +1,17 @@
 package pl.dolega.springcore.dao.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.dolega.springcore.dao.TicketDao;
-import pl.dolega.springcore.exceptions.NoSuchRecordException;
-import pl.dolega.springcore.exceptions.RecordAlreadyExistException;
 import pl.dolega.springcore.model.Event;
 import pl.dolega.springcore.model.Ticket;
 import pl.dolega.springcore.model.Ticket.Category;
 import pl.dolega.springcore.model.User;
-import pl.dolega.springcore.utils.Utils;
+import pl.dolega.springcore.utils.RecordChecker;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Random;
 
 public class TicketDaoImpl implements TicketDao {
 
@@ -26,9 +24,9 @@ public class TicketDaoImpl implements TicketDao {
     @Autowired
     LinkedHashMap<String, Ticket> eventStorage;
 
+    Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 
-
-    Utils utils = new Utils();
+    RecordChecker utils = new RecordChecker();
 
     @Override
     public Ticket bookTicket(long userId, long eventId, int place, Category category) {
@@ -45,6 +43,7 @@ public class TicketDaoImpl implements TicketDao {
         if (utils.doesExist("ticket", ticket.getId(), ticketStorage)) {
             return ticketStorage.get("ticket:" + ticket.getId());
         }
+        logger.info("Booking ticket of id " + ticket.getId() + ".");
         ticketStorage.put("ticket:" + ticket.getId(), ticket);
         return ticket;
     }
@@ -54,6 +53,7 @@ public class TicketDaoImpl implements TicketDao {
         if (utils.doesntExist("user", user.getId(), userStorage)) {
             return null;
         }
+        logger.info("Getting tickets by user id: " + user.getId() + ".");
         int skipCount = (pageNum - 1) * pageSize;
         return ticketStorage.values()
                 .stream()
@@ -68,6 +68,7 @@ public class TicketDaoImpl implements TicketDao {
         if (utils.doesntExist("event", event.getId(), eventStorage)) {
             return null;
         }
+        logger.info("Getting tickets by event id: " + event.getId() + ".");
         int skipCount = (pageNum - 1) * pageSize;
         return ticketStorage.values()
                 .stream()
@@ -82,6 +83,7 @@ public class TicketDaoImpl implements TicketDao {
         if (utils.doesntExist("ticket", ticketId, ticketStorage)) {
             return false;
         }
+        logger.info("Canceling ticket by id: " + ticketId + ".");
         ticketStorage.remove("ticket:" + ticketId);
         return true;
     }

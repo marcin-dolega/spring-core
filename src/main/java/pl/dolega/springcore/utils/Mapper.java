@@ -1,4 +1,4 @@
-package pl.dolega.springcore.mapper;
+package pl.dolega.springcore.utils;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;

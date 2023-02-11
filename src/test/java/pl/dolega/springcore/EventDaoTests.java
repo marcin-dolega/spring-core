@@ -98,7 +98,6 @@ public class EventDaoTests {
     @Test
     public void createEventTest() {
         eventDao.createEvent(event);
-        System.out.println(eventStorage);
         assertNotNull(event);
         assertNotNull(eventStorage);
         assertEquals("event_1", eventStorage.get("event:" + event.getId()).getTitle());
