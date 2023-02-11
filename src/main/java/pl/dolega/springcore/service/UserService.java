@@ -2,7 +2,7 @@ package pl.dolega.springcore.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.dolega.springcore.dao.UserDao;
-import pl.dolega.springcore.model.User;
+import pl.dolega.springcore.model.user.User;
 
 import java.util.List;
 

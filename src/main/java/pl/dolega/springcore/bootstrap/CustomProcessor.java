@@ -8,8 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.PropertySource;
+import pl.dolega.springcore.model.ticket.Ticket;
+import pl.dolega.springcore.model.ticket.Tickets;
+import pl.dolega.springcore.model.event.Event;
+import pl.dolega.springcore.model.event.Events;
+import pl.dolega.springcore.model.user.User;
+import pl.dolega.springcore.model.user.Users;
 import pl.dolega.springcore.utils.Mapper;
-import pl.dolega.springcore.model.*;
 
 import java.util.LinkedHashMap;
 

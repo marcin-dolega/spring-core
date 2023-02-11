@@ -1,4 +1,4 @@
-package pl.dolega.springcore.model;
+package pl.dolega.springcore.model.ticket;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -15,11 +15,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@XmlRootElement(name = "events")
+@XmlRootElement(name = "tickets")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Events {
+public class Tickets {
 
-    @XmlElement(name = "event")
-    private List<Event> events = null;
-
+    @XmlElement(name = "ticket")
+    private List<Ticket> tickets = null;
 }

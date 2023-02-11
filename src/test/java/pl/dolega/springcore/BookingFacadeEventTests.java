@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import pl.dolega.springcore.facade.BookingFacade;
-import pl.dolega.springcore.model.Event;
-import pl.dolega.springcore.model.User;
+import pl.dolega.springcore.model.event.Event;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -15,7 +14,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
 public class BookingFacadeEventTests {

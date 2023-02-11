@@ -1,6 +1,6 @@
 package pl.dolega.springcore.dao;
 
-import pl.dolega.springcore.model.Event;
+import pl.dolega.springcore.model.event.Event;
 
 import java.util.Date;
 import java.util.List;

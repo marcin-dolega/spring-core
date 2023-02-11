@@ -1,8 +1,9 @@
 package pl.dolega.springcore.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import pl.dolega.springcore.dao.EventDao;
 import pl.dolega.springcore.dao.impl.EventDaoImpl;
-import pl.dolega.springcore.model.Event;
+import pl.dolega.springcore.model.event.Event;
 
 import java.util.Date;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 public class EventService {
 
     @Autowired
-    EventDaoImpl eventDao;
+    EventDao eventDao;
 
     public Event getEventById(long eventId) {
         return eventDao.getEventById(eventId);

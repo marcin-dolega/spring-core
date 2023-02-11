@@ -1,4 +1,4 @@
-package pl.dolega.springcore.model;
+package pl.dolega.springcore.model.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,6 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 public class Event {
+
     /**
      * Event id. UNIQUE.
      * @return Event Id

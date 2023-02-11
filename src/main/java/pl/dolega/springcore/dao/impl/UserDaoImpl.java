@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.dolega.springcore.dao.UserDao;
-import pl.dolega.springcore.model.User;
+import pl.dolega.springcore.model.user.User;
 import pl.dolega.springcore.utils.RecordChecker;
 
 import java.util.LinkedHashMap;
@@ -17,7 +17,7 @@ public class UserDaoImpl implements UserDao {
 
     RecordChecker utils = new RecordChecker();
 
-    Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
+    Logger logger = LoggerFactory.getLogger(UserDao.class);
 
     @Override
     public User getUserById(long userId) {
@@ -28,11 +28,17 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getUserByEmail(String email) {
         logger.info("Getting user by email: " + email + ".");
-        return userStorage.values()
+        boolean isPresent = userStorage.values()
                 .stream()
-                .filter(user -> user.getEmail().equals(email))
-                .findFirst()
-                .orElseThrow();
+                .anyMatch(user -> user.getEmail().equals(email));
+        if (isPresent) {
+            return userStorage.values()
+                    .stream()
+                    .filter(user -> user.getEmail().equals(email))
+                    .findFirst()
+                    .get();
+        }
+        return null;
     }
 
     @Override
@@ -49,11 +55,12 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User createUser(User user) {
-        if (utils.doesExist("user", user.getId(), userStorage)) {
+        if (utils.doesExist("user", user.getId(), userStorage) || getUserByEmail(user.getEmail()) != null) {
             return user;
         }
-        logger.info("User created.");
-        return userStorage.put("user:" + user.getId(), user);
+        userStorage.put("user:" + user.getId(), user);
+        logger.info(user + " created.");
+        return user;
     }
 
     @Override

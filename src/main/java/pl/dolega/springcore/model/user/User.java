@@ -1,4 +1,4 @@
-package pl.dolega.springcore.model;
+package pl.dolega.springcore.model.user;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;

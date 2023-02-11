@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import pl.dolega.springcore.dao.EventDao;
-import pl.dolega.springcore.model.Event;
+import pl.dolega.springcore.model.event.Event;
 
 import java.time.Instant;
 import java.util.ArrayList;

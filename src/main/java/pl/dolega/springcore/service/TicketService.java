@@ -2,10 +2,10 @@ package pl.dolega.springcore.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.dolega.springcore.dao.TicketDao;
-import pl.dolega.springcore.model.Event;
-import pl.dolega.springcore.model.Ticket;
-import pl.dolega.springcore.model.Ticket.Category;
-import pl.dolega.springcore.model.User;
+import pl.dolega.springcore.model.event.Event;
+import pl.dolega.springcore.model.ticket.Ticket;
+import pl.dolega.springcore.model.ticket.Ticket.Category;
+import pl.dolega.springcore.model.user.User;
 
 import java.util.List;
 

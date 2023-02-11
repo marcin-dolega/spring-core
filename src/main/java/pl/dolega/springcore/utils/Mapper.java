@@ -3,9 +3,9 @@ package pl.dolega.springcore.utils;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
-import pl.dolega.springcore.model.Events;
-import pl.dolega.springcore.model.Tickets;
-import pl.dolega.springcore.model.Users;
+import pl.dolega.springcore.model.event.Events;
+import pl.dolega.springcore.model.ticket.Tickets;
+import pl.dolega.springcore.model.user.Users;
 
 import java.io.File;
 

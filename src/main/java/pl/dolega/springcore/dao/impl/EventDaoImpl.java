@@ -3,9 +3,8 @@ package pl.dolega.springcore.dao.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.dolega.springcore.bootstrap.Bootstrap;
 import pl.dolega.springcore.dao.EventDao;
-import pl.dolega.springcore.model.Event;
+import pl.dolega.springcore.model.event.Event;
 import pl.dolega.springcore.utils.RecordChecker;
 
 import java.text.ParseException;
@@ -67,8 +66,9 @@ public class EventDaoImpl implements EventDao {
             logger.error("Event of id: " + event.getId() + " already exists.");
             return event;
         }
-        logger.info("Event of id: " + event.getId() + " created.");
-        return eventStorage.put("event:" + event.getId(), event);
+        eventStorage.put("event:" + event.getId(), event);
+        logger.info(event + " created.");
+        return event;
     }
 
     @Override

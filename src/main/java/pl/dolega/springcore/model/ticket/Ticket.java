@@ -1,4 +1,4 @@
-package pl.dolega.springcore.model;
+package pl.dolega.springcore.model.ticket;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

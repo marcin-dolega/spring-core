@@ -1,7 +1,6 @@
 package pl.dolega.springcore.dao;
 
-import org.springframework.stereotype.Component;
-import pl.dolega.springcore.model.User;
+import pl.dolega.springcore.model.user.User;
 
 import java.util.List;
 

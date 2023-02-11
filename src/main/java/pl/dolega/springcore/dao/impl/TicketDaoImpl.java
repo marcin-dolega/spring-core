@@ -4,10 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.dolega.springcore.dao.TicketDao;
-import pl.dolega.springcore.model.Event;
-import pl.dolega.springcore.model.Ticket;
-import pl.dolega.springcore.model.Ticket.Category;
-import pl.dolega.springcore.model.User;
+import pl.dolega.springcore.model.event.Event;
+import pl.dolega.springcore.model.ticket.Ticket;
+import pl.dolega.springcore.model.ticket.Ticket.Category;
+import pl.dolega.springcore.model.user.User;
 import pl.dolega.springcore.utils.RecordChecker;
 
 import java.util.LinkedHashMap;
@@ -24,7 +24,7 @@ public class TicketDaoImpl implements TicketDao {
     @Autowired
     LinkedHashMap<String, Ticket> eventStorage;
 
-    Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
+    Logger logger = LoggerFactory.getLogger(TicketDao.class);
 
     RecordChecker utils = new RecordChecker();
 
@@ -43,7 +43,7 @@ public class TicketDaoImpl implements TicketDao {
         if (utils.doesExist("ticket", ticket.getId(), ticketStorage)) {
             return ticketStorage.get("ticket:" + ticket.getId());
         }
-        logger.info("Booking ticket of id " + ticket.getId() + ".");
+        logger.info(ticket + " booked.");
         ticketStorage.put("ticket:" + ticket.getId(), ticket);
         return ticket;
     }
@@ -83,9 +83,14 @@ public class TicketDaoImpl implements TicketDao {
         if (utils.doesntExist("ticket", ticketId, ticketStorage)) {
             return false;
         }
-        logger.info("Canceling ticket by id: " + ticketId + ".");
         ticketStorage.remove("ticket:" + ticketId);
+        logger.info(getBookedTicketById(ticketId) + " canceled.");
         return true;
+    }
+
+    @Override
+    public Ticket getBookedTicketById(long ticketId) {
+        return ticketStorage.get("ticket:" + ticketId);
     }
 
 }

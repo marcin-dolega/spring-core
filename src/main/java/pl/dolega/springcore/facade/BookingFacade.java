@@ -1,8 +1,8 @@
 package pl.dolega.springcore.facade;
 
-import pl.dolega.springcore.model.Event;
-import pl.dolega.springcore.model.Ticket;
-import pl.dolega.springcore.model.User;
+import pl.dolega.springcore.model.event.Event;
+import pl.dolega.springcore.model.ticket.Ticket;
+import pl.dolega.springcore.model.user.User;
 
 import java.util.Date;
 import java.util.List;

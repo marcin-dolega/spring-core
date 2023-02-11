@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import pl.dolega.springcore.dao.UserDao;
-import pl.dolega.springcore.model.User;
+import pl.dolega.springcore.model.user.User;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

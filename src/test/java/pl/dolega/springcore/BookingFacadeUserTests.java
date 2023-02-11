@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import pl.dolega.springcore.facade.BookingFacade;
-import pl.dolega.springcore.model.User;
+import pl.dolega.springcore.model.user.User;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -80,6 +80,41 @@ public class BookingFacadeUserTests {
         assertNotNull(userStorage);
         assertEquals("user", userStorage.get("user:" + user.getId()).getName());
     }
+
+    @Test
+    public void createUsersWithSameIdTest() {
+        User user1 = User.builder()
+                .id(1)
+                .name("user")
+                .email("user1@email.com")
+                .build();
+        User user2 = User.builder()
+                .id(1)
+                .name("user")
+                .email("user2@email.com")
+                .build();
+        bookingFacade.createUser(user1);
+        bookingFacade.createUser(user2);
+        assertEquals(1, userStorage.size());
+    }
+
+    @Test
+    public void createUsersWithSameEmailTest() {
+        User user1 = User.builder()
+                .id(1)
+                .name("user")
+                .email("user@email.com")
+                .build();
+        User user2 = User.builder()
+                .id(2)
+                .name("user")
+                .email("user@email.com")
+                .build();
+        bookingFacade.createUser(user1);
+        bookingFacade.createUser(user2);
+        assertEquals(1, userStorage.size());
+    }
+
 
     @Test
     public void updateUserTest() {
